@@ -1,4 +1,3 @@
-# ---------- Node + build ----------
 node_modules/
 dist/
 build/
@@ -6,12 +5,10 @@ build/
 .cache/
 coverage/
 
-# ---------- TypeScript / tooling ----------
 *.tsbuildinfo
 /.turbo
 /.parcel-cache
 
-# ---------- Env + logs ----------
 .env
 .env.local
 .env.*
@@ -20,16 +17,15 @@ yarn-debug.log*
 pnpm-debug.log*
 *.log
 
-# ---------- Editor / OS ----------
+
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 
-# ---------- Misc ----------
+
 *.tgz
 
-# ---------- Expo / React Native (mobile/) ----------
 mobile/.expo/
 mobile/.expo-shared/
 mobile/dist/
@@ -47,15 +43,12 @@ mobile/*.mobileprovision
 mobile/*.orig.*
 mobile/metro.config.local.js
 
-# Expo/EAS local credentials
 mobile/credentials.json
 mobile/.eas/
 
-# ---------- Backend (server/) ----------
 server/dist/
 server/logs/
 server/*.pem
 
-# ---------- MongoDB local dumps (if any) ----------
 *.mongodb.gz
 dump/
