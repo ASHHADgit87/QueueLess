@@ -24,7 +24,7 @@ const recalculateBusinessRating = async (businessId: string) => {
 
 export const createReview = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const { id: businessId } = req.params;
+    const businessId = req.params.id as string;
     const { rating, comment } = req.body;
     const userId = req.user!.id;
 
@@ -66,7 +66,7 @@ export const createReview = asyncHandler(
 
 export const getReviewsForBusiness = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const { id: businessId } = req.params;
+    const businessId = req.params.id as string;
     const reviews = await Review.find({ business: businessId })
       .sort({ createdAt: -1 })
       .populate("user", "name");
@@ -78,7 +78,8 @@ export const getReviewsForBusiness = asyncHandler(
 export const replyToReview = asyncHandler(
   async (req: AuthRequest, res: Response) => {
     const { reply } = req.body;
-    const review = await Review.findById(req.params.id);
+    const reviewId = req.params.id as string;
+    const review = await Review.findById(reviewId);
     if (!review) throw new ApiError(404, "Review not found.");
 
     const business = await Business.findById(review.business);

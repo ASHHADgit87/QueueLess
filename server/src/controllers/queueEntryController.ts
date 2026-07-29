@@ -48,7 +48,7 @@ const maybeSendGetReadyNotifications = async (
 
 export const joinQueue = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const { id: queueId } = req.params;
+    const queueId = req.params.id as string;
     const userId = req.user!.id;
 
     const queue = await Queue.findById(queueId);
@@ -101,7 +101,7 @@ export const joinQueue = asyncHandler(
 
 export const leaveQueue = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const { id: queueId } = req.params;
+    const queueId = req.params.id as string;
     const userId = req.user!.id;
 
     const entry = await QueueEntry.findOne({
@@ -127,7 +127,7 @@ export const leaveQueue = asyncHandler(
 
 export const addWalkIn = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const { id: queueId } = req.params;
+    const queueId = req.params.id as string;
     const { name } = req.body;
 
     const { queue } = await assertOwnsQueueBusiness(
@@ -162,7 +162,7 @@ export const addWalkIn = asyncHandler(
 
 export const getQueueEntries = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const { id: queueId } = req.params;
+    const queueId = req.params.id as string;
 
     const entries = await QueueEntry.find({
       queue: queueId,
@@ -174,9 +174,10 @@ export const getQueueEntries = asyncHandler(
     res.status(200).json({ success: true, entries });
   },
 );
+
 export const callNext = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const { id: queueId } = req.params;
+    const queueId = req.params.id as string;
     const { queue } = await assertOwnsQueueBusiness(
       queueId,
       req.user!.id,
@@ -237,7 +238,8 @@ export const callNext = asyncHandler(
 
 export const markNoShow = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const entry = await QueueEntry.findById(req.params.id);
+    const entryId = req.params.id as string;
+    const entry = await QueueEntry.findById(entryId);
     if (!entry) throw new ApiError(404, "Queue entry not found.");
 
     await assertOwnsQueueBusiness(

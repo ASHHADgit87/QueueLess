@@ -25,7 +25,7 @@ const assertOwnsQueueBusiness = async (
 
 export const createQueue = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const { businessId } = req.params;
+    const businessId = req.params.businessId as string;
     const { name, avgServiceTimeMins } = req.body;
 
     const business = await Business.findById(businessId);
@@ -50,7 +50,7 @@ export const createQueue = asyncHandler(
 
 export const getQueuesForBusiness = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    const { businessId } = req.params;
+    const businessId = req.params.businessId as string;
     const queues = await Queue.find({ business: businessId }).sort({
       createdAt: 1,
     });
@@ -60,8 +60,9 @@ export const getQueuesForBusiness = asyncHandler(
 
 export const updateQueue = asyncHandler(
   async (req: AuthRequest, res: Response) => {
+    const queueId = req.params.id as string;
     const { queue } = await assertOwnsQueueBusiness(
-      req.params.id,
+      queueId,
       req.user!.id,
       req.user!.role,
     );
@@ -75,8 +76,9 @@ export const updateQueue = asyncHandler(
 
 export const deleteQueue = asyncHandler(
   async (req: AuthRequest, res: Response) => {
+    const queueId = req.params.id as string;
     const { queue } = await assertOwnsQueueBusiness(
-      req.params.id,
+      queueId,
       req.user!.id,
       req.user!.role,
     );
