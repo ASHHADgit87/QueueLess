@@ -1,0 +1,8 @@
+{
+  "expo": {
+    "name": "QueueLess",
+    "slug": "queueless-mobile-app",
+    "scheme": "queueless",
+    "plugins": ["expo-router"]
+  }
+}
