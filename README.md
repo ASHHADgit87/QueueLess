@@ -106,4 +106,5 @@ Any mutation to a queue entry (join, leave, call-next, no-show) triggers a fresh
 # Creator & Developer
 
 **Muhammad Ashhadullah Zaheer**
+
 LinkedIn: https://www.linkedin.com/in/muhammad-ashhadullah-zaheer-41194a340/
