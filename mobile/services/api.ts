@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as SecureStore from "expo-secure-store";
+import { storage } from "../utils/storage";
 import { API_URL } from "../utils/constants";
 
 export const TOKEN_KEY = "queueless_token";
@@ -11,7 +11,7 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(async (config) => {
-  const token = await SecureStore.getItemAsync(TOKEN_KEY);
+  const token = await storage.getItem(TOKEN_KEY);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -30,6 +30,6 @@ api.interceptors.response.use(
 );
 
 export const setStoredToken = (token: string) =>
-  SecureStore.setItemAsync(TOKEN_KEY, token);
-export const getStoredToken = () => SecureStore.getItemAsync(TOKEN_KEY);
-export const clearStoredToken = () => SecureStore.deleteItemAsync(TOKEN_KEY);
+  storage.setItem(TOKEN_KEY, token);
+export const getStoredToken = () => storage.getItem(TOKEN_KEY);
+export const clearStoredToken = () => storage.removeItem(TOKEN_KEY);
